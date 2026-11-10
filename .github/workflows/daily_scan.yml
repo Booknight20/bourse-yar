@@ -2,7 +2,9 @@ name: Bourse Yar Daily Scan
 on:
   workflow_dispatch:
   schedule:
-    - cron: "45 9 * * 0-4"
+    # Tehran market trading days: Saturday through Wednesday.
+    # 09:45 UTC is 13:15 Tehran time.
+    - cron: "45 9 * * 6,0-3"
 jobs:
   scan:
     runs-on: ubuntu-latest
