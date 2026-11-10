@@ -1,0 +1,23 @@
+name: Bourse Yar Daily Scan
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "45 9 * * 0-4"
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run market scan
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          PUBLISH_TO_CHANNEL: ${{ vars.PUBLISH_TO_CHANNEL }}
+        run: python main.py
