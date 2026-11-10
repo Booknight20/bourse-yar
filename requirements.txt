@@ -1,0 +1,4 @@
+pytse-client>=0.સ્ટ
+pandas>=2.2
+numpy>=1.26
+requests>=2.31
